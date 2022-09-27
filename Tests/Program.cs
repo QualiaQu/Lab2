@@ -32,7 +32,7 @@ static class Program
             if (n > 0)
             {
                 Movetower(n - 1, from, other, to);
-                Console.WriteLine("Move disk {0} from tower {1} to tower {2}", 
+                Console.WriteLine("Move disk {0} from tower {1} to tower {2}",
                     n, from, to);
                 _count++;
                 Movetower(n - 1, other, to, from);
