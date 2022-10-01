@@ -42,8 +42,8 @@ namespace Lab2
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            canvas1.Children.Clear();
-            tbLabel.Text = "";
+            Canvas1.Children.Clear();
+            TbLabel.Text = "";
             i = 0;
             depth = 1;
             CompositionTarget.Rendering += StartAnimation;
@@ -54,14 +54,14 @@ namespace Lab2
             i += 1;
             if (i % 60 == 0)
             {
-                DrawBinaryTree(canvas1, depth, new Point(canvas1.Width / 2, 0.83 * canvas1.Height), 0.2 * canvas1.Width,
+                DrawBinaryTree(Canvas1, depth, new Point(Canvas1.Width / 2, 0.83 * Canvas1.Height), 0.2 * Canvas1.Width,
                     -Math.PI / 2);
                 string str = "Binary Tree - Depth = " + depth.ToString();
-                tbLabel.Text = str;
+                TbLabel.Text = str;
                 depth += 1;
                 if (depth > 20)
                 {
-                    tbLabel.Text = $"Binary Tree - Depth ={depth}. Finished";
+                    TbLabel.Text = $"Binary Tree - Depth ={depth}. Finished";
                     CompositionTarget.Rendering -= StartAnimation;
                 }
             }

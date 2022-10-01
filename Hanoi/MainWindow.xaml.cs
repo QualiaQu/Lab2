@@ -8,10 +8,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace Hanoi;
-
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow
 {
     private int _maxCount;
@@ -24,18 +20,18 @@ public partial class MainWindow
     delegate void MoveDelList(int f);
 
     readonly MoveDelList[] _mvDel;
-    const double MoVeSpeed = 0.2;
+    const double MoveSpeed = 0.1;
     public MainWindow()
     {
         InitializeComponent();
         _mvDel = new MoveDelList[2];
         _mvDel[0] = MoveMin;
         _mvDel[1] = MoveMax;
-
+        
         _list[0] = new List<int>(5);
         _list[1] = new List<int>(5);
         _list[2] = new List<int>(5);
-
+        
         _canList[0] = new List<Canvas>();
         _canList[1] = new List<Canvas>();
         _canList[2] = new List<Canvas>();
@@ -98,18 +94,58 @@ public partial class MainWindow
         }
     }
 
+    private void MoveTower(int n, int from, int to , int other, Canvas cnv)
+    {
+        if (n > 0)
+        {
+            MoveTower(n - 1, from, other, to, cnv);
+            //Console.WriteLine($"Move disk {n} from tower {from} to tower {to}");
+            AnimateMove(0, cnv, from, to);
+            MoveTower(n - 1, other, to, from,cnv);
+        }
+    }
+    private void AnimateMove(int f, Canvas cn, double x, double y)
+    {
+        Panel.SetZIndex(cn, Panel.GetZIndex(cn) * 10);
+        DoubleAnimation dax = new DoubleAnimation
+        {
+            Duration = new Duration(TimeSpan.FromSeconds(MoveSpeed)),
+            From = cn.RenderTransformOrigin.X,
+            To = x
+        };
+        
+        DoubleAnimation day = new DoubleAnimation
+        {
+            Duration = new Duration(TimeSpan.FromSeconds(MoveSpeed)),
+            From = cn.RenderTransformOrigin.Y,
+            To = y
+        };
+
+        TranslateTransform tf = new TranslateTransform();
+        cn.RenderTransform = tf;
+        tf.SetValue(Canvas.LeftProperty, x);
+        tf.SetValue(Canvas.TopProperty, y);
+        tf.SetValue(Dprop, f);
+        tf.SetValue(CanvasProp, cn);
+
+        tf.Changed += tf_Changed;
+        
+        tf.BeginAnimation(TranslateTransform.XProperty, dax);
+        tf.BeginAnimation(TranslateTransform.YProperty, day);
+    }
     private void button1_Click(object sender, RoutedEventArgs e)
     {
         InitForm();
         ThreadPool.QueueUserWorkItem(StartProc);
         Button1.IsEnabled = false;
+        //MoveTower(_maxCount,1,3,4, Canvas1);
     }
 
     private void StartProc(object? stateInfo)
     {
         MoveItem(0);
     }
-
+    
     private void MoveItem(int f)
     {
         if (_list[2].Count == _maxCount || _list[1].Count == _maxCount)
@@ -155,16 +191,7 @@ public partial class MainWindow
             _currentList = 0;
         }
         Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
-            new OnAnimate(Animate), f, cn, _positions[dist], (_maxCount - _canList[dist].Count) * H);
-    }
-
-    public static void Movetower(int n, int from, int to, int other)
-    {
-        if (n > 0)
-        {
-            Movetower(n - 1, from, other, to);
-            Movetower(n - 1, other, to, from);
-        }
+            new OnAnimate(AnimateMove), f, cn, _positions[dist], (_maxCount - _canList[dist].Count) * H);
     }
     private void MoveMax(int f)
     {
@@ -177,6 +204,7 @@ public partial class MainWindow
             if (i == _currentList) { continue; }
             if (minVal > _list[i][0]) { minVal = _list[i][0]; from = i; }
         }
+        
         var to = GetIndex(from, _currentList);
         int v = _list[from][0];
         _list[from].RemoveAt(0);
@@ -186,13 +214,12 @@ public partial class MainWindow
         _canList[from].RemoveAt(0);
         _canList[to].Insert(0, cn);
         double y = (_maxCount - _canList[to].Count) * H - Canvas.GetTop(cn);
-        Animate(f, cn, _positions[to], y);
+        AnimateMove(f, cn, _positions[to], y);
     }
 
     private int GetIndex(int i, int j) { return 3 - (i + j); }
-
     delegate void OnAnimate(int f, Canvas cn, double x, double y);
-
+    
     static readonly DependencyProperty Dprop = DependencyProperty.RegisterAttached(
         "temp", typeof(int), typeof(int));
     static readonly DependencyProperty CanvasProp = DependencyProperty.RegisterAttached(
@@ -203,26 +230,27 @@ public partial class MainWindow
         Panel.SetZIndex(cn, Panel.GetZIndex(cn) * 10);
         DoubleAnimation dax = new DoubleAnimation
         {
-            Duration = new Duration(TimeSpan.FromSeconds(MoVeSpeed)),
+            Duration = new Duration(TimeSpan.FromSeconds(MoveSpeed)),
             From = cn.RenderTransformOrigin.X,
             To = x
         };
-
+        
         DoubleAnimation day = new DoubleAnimation
         {
-            Duration = new Duration(TimeSpan.FromSeconds(MoVeSpeed)),
+            Duration = new Duration(TimeSpan.FromSeconds(MoveSpeed)),
             From = cn.RenderTransformOrigin.Y,
             To = y
         };
-
+    
         TranslateTransform tf = new TranslateTransform();
         cn.RenderTransform = tf;
         tf.SetValue(Canvas.LeftProperty, x);
         tf.SetValue(Canvas.TopProperty, y);
         tf.SetValue(Dprop, f);
         tf.SetValue(CanvasProp, cn);
-
+    
         tf.Changed += tf_Changed;
+        
         tf.BeginAnimation(TranslateTransform.XProperty, dax);
         tf.BeginAnimation(TranslateTransform.YProperty, day);
     }

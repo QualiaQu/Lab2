@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Hanoi" Height="600" Width="1020">
     <Grid>
-        <Canvas Height="580" HorizontalAlignment="Left" Margin="10,10,0,0" Name="Canvas1" VerticalAlignment="Top" Width="1000" Background="#C3FFB3" Opacity="1" Grid.ColumnSpan="2">
+        <Canvas Height="580" HorizontalAlignment="Left" Margin="10,10,0,0" Name="Canvas1" 
+                VerticalAlignment="Top" Width="1000" Background="#C3FFB3" Opacity="1" Grid.ColumnSpan="2">
         </Canvas>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Button FontSize="20" Content="Начать" Height="30" Name="Button1" Width="75" Click="button1_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0 ,0"/>

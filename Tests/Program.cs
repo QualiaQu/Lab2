@@ -2,6 +2,9 @@
  * C# Program to Demonstrate Tower Of Hanoi
  */
 
+using System.Runtime.InteropServices;
+using Convert = System.Convert;
+
 namespace Tests;
 
 static class Program
@@ -27,14 +30,12 @@ static class Program
                     _mNumdiscs = value;
             }
         }
-        public static void Movetower(int n, int from, int to, int other)
+        public static void Movetower(int n, int from = 1, int to = 3, int other = 2)
         {
             if (n > 0)
             {
                 Movetower(n - 1, from, other, to);
-                Console.WriteLine("Move disk {0} from tower {1} to tower {2}",
-                    n, from, to);
-                _count++;
+                Console.WriteLine($"Move disk {n} from tower {from} to tower {to}");
                 Movetower(n - 1, other, to, from);
             }
         }
@@ -44,11 +45,10 @@ static class Program
     {
         public static void Main()
         {
-            TowerOfHanoi T = new TowerOfHanoi();
-            Console.Write("Enter the number of discs: ");
-            T.Numdiscs = Convert.ToInt32(8);
-            TowerOfHanoi.Movetower(T.Numdiscs, 1, 3, 2);
-            Console.WriteLine(_count);
+            //TowerOfHanoi T = new TowerOfHanoi();
+            var ringCount = Convert.ToInt32(Console.ReadLine());
+            // TowerOfHanoi.Movetower(ringCount, 1, 3, 2);
+            TowerOfHanoi.Movetower(ringCount);
         }
     }
 }
