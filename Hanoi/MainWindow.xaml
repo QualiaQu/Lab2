@@ -11,6 +11,6 @@
             <TextBlock Height="30" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0 ,0"  Text="Количество колец:" VerticalAlignment="Top" RenderTransformOrigin="1.823,7.712" />
             <TextBox MaxLength="1"  Name="RingCount" Height="30" Width="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0 ,0" Text="" TextAlignment="Center" FontSize="20"/>
             <Button FontSize="20" Content="Начать" Height="30" Width="75" Click="Button_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0 ,0"/>
-        </StackPanel>
+        </StackPanel>  
     </Grid>
 </Window>
