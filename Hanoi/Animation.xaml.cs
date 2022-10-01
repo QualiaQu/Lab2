@@ -2,34 +2,33 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace Hanoi
 {
-    public partial class AutoWindow 
+    public partial class Animation 
     {
         readonly int _ringsCount;
         /// <summary>
         /// Список передвижений
         /// </summary>
-        readonly List<Tuple<int, int>> _movementsList=new();
-        public AutoWindow(HelpClass help)
+        readonly List<Tuple<int, int>> _movementsList = new();
+        public Animation(HelpClass help)
         {
             InitializeComponent();
             _ringsCount = help.RingsCount;
-            CreateField();
+            Start();
         }
         /// <summary>
         /// Создает поле
         /// </summary>
         private void CreateField()
         {
-            col1.Children.Clear();
-            col2.Children.Clear();
-            col3.Children.Clear();
+            Col1.Children.Clear();
+            Col2.Children.Clear();
+            Col3.Children.Clear();
 
             int ringWidth = HelpClass.RingMinWidth;
             for (int i = 0; i < _ringsCount; i++)
@@ -42,7 +41,7 @@ namespace Hanoi
                 };
                 Canvas.SetLeft(r, 120 - r.Width / 2);
                 Canvas.SetBottom(r, r.Height *i);
-                col1.Children.Add(r);
+                Col1.Children.Add(r);
             }
         }
 
@@ -56,21 +55,20 @@ namespace Hanoi
             switch (sourceCol)
             {
                 case 0:
-                    Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(col1));
-                    Canvas.SetBottom(copy, Canvas.GetBottom(source) + Canvas.GetBottom(col1));
+                    Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(Col1));
+                    Canvas.SetBottom(copy, Canvas.GetBottom(source) + Canvas.GetBottom(Col1));
                     break;
                 case 1:
-                    Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(col2));
-                    Canvas.SetBottom(copy, Canvas.GetBottom(source) + Canvas.GetBottom(col2));
+                    Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(Col2));
+                    Canvas.SetBottom(copy, Canvas.GetBottom(source) + Canvas.GetBottom(Col2));
                     break;
                 case 2:
-                    Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(col3));
-                    Canvas.SetBottom(copy, Canvas.GetBottom(source) + Canvas.GetBottom(col3));
+                    Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(Col3));
+                    Canvas.SetBottom(copy, Canvas.GetBottom(source) + Canvas.GetBottom(Col3));
                     break;
             }
             
         }
-
         private void Anima(Rectangle r, int to, DoubleAnimation leftAnimation, DoubleAnimation bottomAnimation)
         { 
             leftAnimation.From = Canvas.GetLeft(r);
@@ -80,60 +78,55 @@ namespace Hanoi
             {
 
                 case 0:
-                    leftAnimation.To = Canvas.GetLeft(col1) + ((col1.Width / 2) - (r.Width / 2));
-                    bottomAnimation.To = Canvas.GetBottom(col1) + (col1.Children.Count * HelpClass.RingHeight);
+                    leftAnimation.To = Canvas.GetLeft(Col1) + ((Col1.Width / 2) - (r.Width / 2));
+                    bottomAnimation.To = Canvas.GetBottom(Col1) + (Col1.Children.Count * HelpClass.RingHeight);
                     break;
                 case 1:
-                    leftAnimation.To = Canvas.GetLeft(col2) + ((col2.Width / 2) - r.Width / 2);
-                    bottomAnimation.To = Canvas.GetBottom(col1) + (col2.Children.Count * HelpClass.RingHeight);
+                    leftAnimation.To = Canvas.GetLeft(Col2) + ((Col2.Width / 2) - r.Width / 2);
+                    bottomAnimation.To = Canvas.GetBottom(Col1) + (Col2.Children.Count * HelpClass.RingHeight);
                     break;
                 case 2:
-                    leftAnimation.To = Canvas.GetLeft(col3) + (col3.Width / 2 - r.Width / 2);
-                    bottomAnimation.To = Canvas.GetBottom(col1) + (col3.Children.Count * HelpClass.RingHeight);
+                    leftAnimation.To = Canvas.GetLeft(Col3) + (Col3.Width / 2 - r.Width / 2);
+                    bottomAnimation.To = Canvas.GetBottom(Col1) + (Col3.Children.Count * HelpClass.RingHeight);
                     break;
             }
-            leftAnimation.Duration = TimeSpan.FromSeconds(Int32.Parse((string)((ComboBoxItem)Speed.SelectedItem).Content)*0.35);
-            bottomAnimation.Duration = TimeSpan.FromSeconds(Int32.Parse((string)((ComboBoxItem)Speed.SelectedItem).Content)*0.35);
-            //int32.Parse((string)((ComboBoxItem)Speed.SelectedItem).Content)*350
+            leftAnimation.Duration = TimeSpan.FromSeconds(0.2);
+            bottomAnimation.Duration = TimeSpan.FromSeconds(0.2);
         }
-
-
         private async Task Move(int from,int to)
         {
             Canvas fromCol;
             switch (from)
             {
                 case 0:
-                    fromCol = col1;
+                    fromCol = Col1;
                     break;
                 case 1:
-                    fromCol = col2;
+                    fromCol = Col2;
                     break;
                 case 2:
-                    fromCol = col3;
+                    fromCol = Col3;
                     break;
                 default:
-                    fromCol = col1;
+                    fromCol = Col1;
                     break;
             }
             Canvas toCol;
             switch (to)
             {
                 case 0:
-                    toCol = col1;
+                    toCol = Col1;
                     break;
                 case 1:
-                    toCol = col2;
+                    toCol = Col2;
                     break;
                 case 2:
-                    toCol = col3;
+                    toCol = Col3;
                     break;
                 default:
-                    toCol = col1;
+                    toCol = Col1;
                     break;
             }
-
-
             DoubleAnimation leftAnimation = new DoubleAnimation();
             DoubleAnimation bottomAnimation = new DoubleAnimation();
 
@@ -150,7 +143,7 @@ namespace Hanoi
             copy.BeginAnimation(Canvas.BottomProperty, bottomAnimation);
             //Позиционируем колечко в ту
             Canvas.SetBottom(r, toCol.Children.Count * HelpClass.RingHeight);
-            await Task.Delay(Int32.Parse((string)((ComboBoxItem)Speed.SelectedItem).Content)*350);
+            await Task.Delay(350);
             //Добавляем колечко в ту
             toCol.Children.Add(r);
             MainCanvas.Children.Remove(copy);
@@ -172,28 +165,21 @@ namespace Hanoi
                     _movementsList.Add(new Tuple<int, int>(from, to));
                     Solution(n - 1, aux, to, from);
                 }
-
             }
             catch (Exception err)
             {
                 Debug.WriteLine(err.Message);
             }
-
         }
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void Start()
         {
             CreateField();
-            StartButton.IsEnabled = false;
             Solution(_ringsCount);
             foreach(var t in _movementsList)
             {
                 
                 await Move(t.Item1, t.Item2);
             }
-           
-            StartButton.IsEnabled = true;
         }
-
-
     }
 }

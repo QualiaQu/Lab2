@@ -15,13 +15,13 @@ namespace Hanoi
             {
                 RingsCount = Int32.Parse(RingCount.Text)
             };
-            AutoWindow autoWindow = new AutoWindow(a);
-            autoWindow.ShowDialog();
+            Animation animation = new Animation(a);
+            animation.ShowDialog();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            /*System.Diagnostics.Process.GetCurrentProcess().Kill();*/
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
     }
 }
