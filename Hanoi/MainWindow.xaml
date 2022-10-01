@@ -11,16 +11,5 @@
             <TextBlock Height="30" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0 ,0"  Text="Количество колец:" VerticalAlignment="Top" RenderTransformOrigin="1.823,7.712" />
             <TextBox MaxLength="1"  Name="RingCount" Height="30" Width="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0 ,0" Text="" TextAlignment="Center" FontSize="20"/>
         </StackPanel>
-        <Canvas x:Name="MainCanvas" HorizontalAlignment="Left" Height="970" VerticalAlignment="Top" Width="1363">
-            <Canvas Panel.ZIndex="1" x:Name="Col1" Height="400" Width="240" Canvas.Left="80" Canvas.Bottom="370"/>
-            <Canvas Panel.ZIndex="1" x:Name="Col2" Height="400" Width="240" Canvas.Left="560" Canvas.Bottom="370"/>
-            <Canvas Panel.ZIndex="1" x:Name="Col3" Height="400" Width="240" Canvas.Left="1040" Canvas.Bottom="370"/>
-            <Rectangle Fill="#008B8B" Height="41" Stroke="gray" Width="240" Canvas.Left="80" Canvas.Top="600"/>
-            <Rectangle Fill="#008B8B" Height="41" Stroke="gray" Width="240" Canvas.Left="560" Canvas.Top="599"/>
-            <Rectangle Fill="#008B8B" Height="41" Stroke="gray" Width="240" Canvas.Left="1040" Canvas.Top="599"/>
-            <Rectangle Fill="#008B8B" Height="400" Stroke="gray" Width="40" Canvas.Left="180" Canvas.Top="200"/>
-            <Rectangle Fill="#008B8B" Height="400" Stroke="gray" Width="40" Canvas.Left="660" Canvas.Top="200"/>
-            <Rectangle Fill="#008B8B" Height="400" Stroke="gray" Width="40" Canvas.Left="1140" Canvas.Top="200"/>
-        </Canvas>
     </Grid>
 </Window>

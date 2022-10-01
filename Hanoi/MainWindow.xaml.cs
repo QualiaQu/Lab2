@@ -18,6 +18,10 @@ namespace Hanoi
             AutoWindow autoWindow = new AutoWindow(a);
             autoWindow.ShowDialog();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            /*System.Diagnostics.Process.GetCurrentProcess().Kill();*/
+        }
     }
-    
 }
