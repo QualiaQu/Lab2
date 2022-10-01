@@ -1,83 +1,80 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Кенийские_башни;
 
-
-namespace Кенийские_башни
+namespace Hanoi
 {
     /// <summary>
     /// Логика взаимодействия для Manual_Window.xaml
     /// </summary>
-    public partial class Manual_Window : Window
+    public partial class ManualWindow
     {
-        int RingsCount;
-        int Moves_Count = 0;
-        public void CreateField()
-        {
-            col1.Children.Clear();
-            col2.Children.Clear();
-            col3.Children.Clear();
+        readonly int _ringsCount;
+        int _movesCount;
 
-            int RingWidth = Help_Class.RingMinWidth;
-            for (int i = 0; i < RingsCount; i++)
+        private void CreateField()
+        {
+            Col1.Children.Clear();
+            Col2.Children.Clear();
+            Col3.Children.Clear();
+
+            int ringWidth = Help_Class.RingMinWidth;
+            for (int i = 0; i < _ringsCount; i++)
             {
-                Rectangle r = new Rectangle();
-                r.Width = RingWidth - i * (Help_Class.Difference);
-                r.Height = Help_Class.RingHeight;
-                r.Fill = Help_Class.ColorBrash(Help_Class.Colors.colors[i]);
+                Rectangle r = new Rectangle
+                {
+                    Width = ringWidth - i * (Help_Class.Difference),
+                    Height = Help_Class.RingHeight,
+                    Fill = Help_Class.ColorBrash(Help_Class.Colors.colors[i])
+                };
                 Canvas.SetLeft(r, 120 - r.Width / 2);
                 Canvas.SetBottom(r, r.Height * i);
                 r.MouseDown += r_MouseDown;
-                col1.Children.Add(r);
+                Col1.Children.Add(r);
             }
         }
-        
-        public void VictoryMessage(int MovesCount)
+
+        private void VictoryMessage(int movesCount)
         {
-            if (col2.Children.Count == RingsCount || col3.Children.Count == RingsCount)
+            if (Col2.Children.Count == _ringsCount || Col3.Children.Count == _ringsCount)
             {
-                if (MovesCount > Math.Pow(2,RingsCount)-1)
+                if (movesCount > Math.Pow(2,_ringsCount)-1)
                 {
-                    MessageBox.Show("Вы прошли игру, сделав при этом " + MovesCount + " ходов, к сожалению, это больше идеального прохождения на " + (MovesCount - (2 ^ RingsCount) - 1) + " ход :(");
+                    MessageBox.Show("Вы прошли игру, сделав при этом " + movesCount + " ходов, к сожалению, это больше идеального прохождения на " + (movesCount - (2 ^ _ringsCount) - 1) + " ход :(");
                 }
                 else
                 {
-                    MessageBox.Show("Вы прошли игру, сделав при этом " + MovesCount + " ходов, это идеальное прохождение :)");
+                    MessageBox.Show("Вы прошли игру, сделав при этом " + movesCount + " ходов, это идеальное прохождение :)");
                 }
                 CreateField();
             }
             
         }
-        public void RectangleCopy(Rectangle source, Rectangle copy, int SourceCol)
+
+        private void RectangleCopy(Rectangle source, Rectangle copy, int sourceCol)
         {
             copy.Fill = source.Fill;
             copy.Width = source.Width;
             copy.Height = source.Height;
 
-            switch (SourceCol)
+            switch (sourceCol)
             {
                 case 0:
-                    Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(col1));
-                    Canvas.SetBottom(copy, Canvas.GetBottom(source) + Canvas.GetBottom(col1));
+                    Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(Col1));
+                    Canvas.SetBottom(copy, Canvas.GetBottom(source) + Canvas.GetBottom(Col1));
                     break;
                 case 1:
-                    Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(col2));
-                    Canvas.SetBottom(copy, Canvas.GetBottom(source) + Canvas.GetBottom(col2));
+                    Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(Col2));
+                    Canvas.SetBottom(copy, Canvas.GetBottom(source) + Canvas.GetBottom(Col2));
                     break;
                 case 2:
-                    Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(col3));
-                    Canvas.SetBottom(copy, Canvas.GetBottom(source) + Canvas.GetBottom(col3));
+                    Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(Col3));
+                    Canvas.SetBottom(copy, Canvas.GetBottom(source) + Canvas.GetBottom(Col3));
                     break;
             }
 
@@ -91,16 +88,16 @@ namespace Кенийские_башни
             {
 
                 case 0:
-                    LeftAnimation.To = Canvas.GetLeft(col1) + ((col1.Width / 2) - (r.Width / 2));
-                    BottomAnimation.To = Canvas.GetBottom(col1) + (col1.Children.Count * Help_Class.RingHeight);
+                    LeftAnimation.To = Canvas.GetLeft(Col1) + ((Col1.Width / 2) - (r.Width / 2));
+                    BottomAnimation.To = Canvas.GetBottom(Col1) + (Col1.Children.Count * Help_Class.RingHeight);
                     break;
                 case 1:
-                    LeftAnimation.To = Canvas.GetLeft(col2) + ((col2.Width / 2) - r.Width / 2);
-                    BottomAnimation.To = Canvas.GetBottom(col1) + (col2.Children.Count * Help_Class.RingHeight);
+                    LeftAnimation.To = Canvas.GetLeft(Col2) + ((Col2.Width / 2) - r.Width / 2);
+                    BottomAnimation.To = Canvas.GetBottom(Col1) + (Col2.Children.Count * Help_Class.RingHeight);
                     break;
                 case 2:
-                    LeftAnimation.To = Canvas.GetLeft(col3) + (col3.Width / 2 - r.Width / 2);
-                    BottomAnimation.To = Canvas.GetBottom(col1) + (col3.Children.Count * Help_Class.RingHeight);
+                    LeftAnimation.To = Canvas.GetLeft(Col3) + (Col3.Width / 2 - r.Width / 2);
+                    BottomAnimation.To = Canvas.GetBottom(Col1) + (Col3.Children.Count * Help_Class.RingHeight);
                     break;
             }
             LeftAnimation.Duration = TimeSpan.FromSeconds(0.2);
@@ -173,8 +170,8 @@ namespace Кенийские_башни
                 await Task.Delay(200);
                 Destination.Children.Add(DroppedItem);
                 MainCanvas.Children.Remove(copy);
-                Moves_Count++;
-                VictoryMessage(Moves_Count);
+                _movesCount++;
+                VictoryMessage(_movesCount);
             }
             else
             {
@@ -184,10 +181,10 @@ namespace Кенийские_башни
             Destination.Background = Help_Class.ColorBrash("Transparent");
             
         }
-        public Manual_Window(Help_Class HA)
+        public ManualWindow(Help_Class HA)
         {
             InitializeComponent();
-            RingsCount = HA.RingsCount;
+            _ringsCount = HA.RingsCount;
             
             
         }

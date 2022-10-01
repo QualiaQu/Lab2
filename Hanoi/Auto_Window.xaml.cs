@@ -1,53 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Кенийские_башни;
 
-namespace Кенийские_башни
+namespace Hanoi
 {
-    /// <summary>
-    /// Логика взаимодействия для Auto_Window.xaml
-    /// </summary>
-    public partial class Auto_Window : Window
+    public partial class AutoWindow 
     {
-        int RingsCount;
+        readonly int _ringsCount;
         /// <summary>
         /// Список передвижений
         /// </summary>
-        List<Tuple<int, int>> MovementsList=new List<Tuple<int, int>>();
-        public Auto_Window(Help_Class Help)
+        readonly List<Tuple<int, int>> _movementsList=new();
+        public AutoWindow(Help_Class help)
         {
             InitializeComponent();
-            RingsCount = Help.RingsCount;
+            _ringsCount = help.RingsCount;
             CreateField();
         }
         /// <summary>
         /// Создает поле
         /// </summary>
-        public void CreateField()
+        private void CreateField()
         {
             col1.Children.Clear();
             col2.Children.Clear();
             col3.Children.Clear();
 
-            int RingWidth = Help_Class.RingMinWidth;
-            for (int i = 0; i < RingsCount; i++)
+            int ringWidth = Help_Class.RingMinWidth;
+            for (int i = 0; i < _ringsCount; i++)
             {
-                Rectangle r = new Rectangle();
-                r.Width = RingWidth - i * (Help_Class.Difference);
-                r.Height = Help_Class.RingHeight;
-                r.Fill = Help_Class.ColorBrash(Help_Class.Colors.colors[i]);
+                Rectangle r = new Rectangle
+                {
+                    Width = ringWidth - i * (Help_Class.Difference),
+                    Height = Help_Class.RingHeight,
+                    Fill = Help_Class.ColorBrash(Help_Class.Colors.colors[i])
+                };
                 Canvas.SetLeft(r, 120 - r.Width / 2);
                 Canvas.SetBottom(r, r.Height *i);
                 col1.Children.Add(r);
@@ -55,13 +48,13 @@ namespace Кенийские_башни
         }
 
 
-        public void RectangleCopy(Rectangle source, Rectangle copy, int SourceCol)
+        private void RectangleCopy(Rectangle source, Rectangle copy, int sourceCol)
         {
             copy.Fill = source.Fill;
             copy.Width = source.Width;
             copy.Height = source.Height;
 
-            switch (SourceCol)
+            switch (sourceCol)
             {
                 case 0:
                     Canvas.SetLeft(copy, Canvas.GetLeft(source) + Canvas.GetLeft(col1));
@@ -78,88 +71,89 @@ namespace Кенийские_башни
             }
             
         }
-        public void Anima(Rectangle r, int to, DoubleAnimation LeftAnimation, DoubleAnimation BottomAnimation)
+
+        private void Anima(Rectangle r, int to, DoubleAnimation leftAnimation, DoubleAnimation bottomAnimation)
         { 
-            LeftAnimation.From = Canvas.GetLeft(r);
-            BottomAnimation.From = Canvas.GetBottom(r);
+            leftAnimation.From = Canvas.GetLeft(r);
+            bottomAnimation.From = Canvas.GetBottom(r);
 
             switch (to)
             {
 
                 case 0:
-                    LeftAnimation.To = Canvas.GetLeft(col1) + ((col1.Width / 2) - (r.Width / 2));
-                    BottomAnimation.To = Canvas.GetBottom(col1) + (col1.Children.Count * Help_Class.RingHeight);
+                    leftAnimation.To = Canvas.GetLeft(col1) + ((col1.Width / 2) - (r.Width / 2));
+                    bottomAnimation.To = Canvas.GetBottom(col1) + (col1.Children.Count * Help_Class.RingHeight);
                     break;
                 case 1:
-                    LeftAnimation.To = Canvas.GetLeft(col2) + ((col2.Width / 2) - r.Width / 2);
-                    BottomAnimation.To = Canvas.GetBottom(col1) + (col2.Children.Count * Help_Class.RingHeight);
+                    leftAnimation.To = Canvas.GetLeft(col2) + ((col2.Width / 2) - r.Width / 2);
+                    bottomAnimation.To = Canvas.GetBottom(col1) + (col2.Children.Count * Help_Class.RingHeight);
                     break;
                 case 2:
-                    LeftAnimation.To = Canvas.GetLeft(col3) + (col3.Width / 2 - r.Width / 2);
-                    BottomAnimation.To = Canvas.GetBottom(col1) + (col3.Children.Count * Help_Class.RingHeight);
+                    leftAnimation.To = Canvas.GetLeft(col3) + (col3.Width / 2 - r.Width / 2);
+                    bottomAnimation.To = Canvas.GetBottom(col1) + (col3.Children.Count * Help_Class.RingHeight);
                     break;
             }
-            LeftAnimation.Duration = TimeSpan.FromSeconds(Int32.Parse((string)((ComboBoxItem)Speed.SelectedItem).Content)*0.35);
-            BottomAnimation.Duration = TimeSpan.FromSeconds(Int32.Parse((string)((ComboBoxItem)Speed.SelectedItem).Content)*0.35);
+            leftAnimation.Duration = TimeSpan.FromSeconds(Int32.Parse((string)((ComboBoxItem)Speed.SelectedItem).Content)*0.35);
+            bottomAnimation.Duration = TimeSpan.FromSeconds(Int32.Parse((string)((ComboBoxItem)Speed.SelectedItem).Content)*0.35);
             //int32.Parse((string)((ComboBoxItem)Speed.SelectedItem).Content)*350
         }
 
 
-        public async Task Move(int from,int to)
+        private async Task Move(int from,int to)
         {
-            Canvas FromCol = new Canvas();
+            Canvas fromCol;
             switch (from)
             {
                 case 0:
-                    FromCol = col1;
+                    fromCol = col1;
                     break;
                 case 1:
-                    FromCol = col2;
+                    fromCol = col2;
                     break;
                 case 2:
-                    FromCol = col3;
+                    fromCol = col3;
                     break;
                 default:
-                    FromCol = col1;
+                    fromCol = col1;
                     break;
             }
-            Canvas ToCol = new Canvas();
+            Canvas toCol;
             switch (to)
             {
                 case 0:
-                    ToCol = col1;
+                    toCol = col1;
                     break;
                 case 1:
-                    ToCol = col2;
+                    toCol = col2;
                     break;
                 case 2:
-                    ToCol = col3;
+                    toCol = col3;
                     break;
                 default:
-                    ToCol = col1;
+                    toCol = col1;
                     break;
             }
 
 
-            DoubleAnimation LeftAnimation = new DoubleAnimation();
-            DoubleAnimation BottomAnimation = new DoubleAnimation();
+            DoubleAnimation leftAnimation = new DoubleAnimation();
+            DoubleAnimation bottomAnimation = new DoubleAnimation();
 
             Rectangle copy = new Rectangle();
             //Забираем колечко из фром
-            Rectangle r = (Rectangle)FromCol.Children[FromCol.Children.Count - 1];
+            Rectangle r = (Rectangle)fromCol.Children[^1];
             
             RectangleCopy(r, copy, from);
-            Anima(copy, to, LeftAnimation, BottomAnimation);
+            Anima(copy, to, leftAnimation, bottomAnimation);
             //Убираем колечко из фром
-            FromCol.Children.Remove(r);
+            fromCol.Children.Remove(r);
             MainCanvas.Children.Add(copy);
-            copy.BeginAnimation(Canvas.LeftProperty,LeftAnimation);
-            copy.BeginAnimation(Canvas.BottomProperty, BottomAnimation);
+            copy.BeginAnimation(Canvas.LeftProperty,leftAnimation);
+            copy.BeginAnimation(Canvas.BottomProperty, bottomAnimation);
             //Позиционируем колечко в ту
-            Canvas.SetBottom(r, ToCol.Children.Count * Help_Class.RingHeight);
+            Canvas.SetBottom(r, toCol.Children.Count * Help_Class.RingHeight);
             await Task.Delay(Int32.Parse((string)((ComboBoxItem)Speed.SelectedItem).Content)*350);
             //Добавляем колечко в ту
-            ToCol.Children.Add(r);
+            toCol.Children.Add(r);
             MainCanvas.Children.Remove(copy);
         }
         /// <summary>
@@ -176,7 +170,7 @@ namespace Кенийские_башни
                 if (n > 0)
                 {
                     Solution(n - 1, from, aux, to);
-                    MovementsList.Add(new Tuple<int, int>(from, to));
+                    _movementsList.Add(new Tuple<int, int>(from, to));
                     Solution(n - 1, aux, to, from);
                 }
 
@@ -191,8 +185,8 @@ namespace Кенийские_башни
         {
             CreateField();
             Start_Button.IsEnabled = false;
-            Solution(RingsCount);
-            foreach(var t in MovementsList)
+            Solution(_ringsCount);
+            foreach(var t in _movementsList)
             {
                 
                 await Move(t.Item1, t.Item2);

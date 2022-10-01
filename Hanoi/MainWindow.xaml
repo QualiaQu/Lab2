@@ -7,32 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Closing="Window_Closing" Width="800">
     <Grid>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Всем салам, выберите все, что нужно плиз" VerticalAlignment="Top" Height="80" Width="794" FontSize="36" Margin="0,0,-0.4,0" TextAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Режим игры:" VerticalAlignment="Top" Margin="10,103,0,0" Height="38" Width="148"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Количество колец:" VerticalAlignment="Top" RenderTransformOrigin="1.823,7.712" Margin="10,162,0,0" Height="41" Width="148"/>
-        <Button Content="Не нажимать" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="318,307,0,0" Height="58" Click="Button_Click"/>
-        <ComboBox x:Name="mode" HorizontalAlignment="Left" VerticalAlignment="Top" Width="117" Margin="130,100,0,0" Height="25">
-            <ComboBoxItem>Ручной</ComboBoxItem>
-            <ComboBoxItem IsSelected="True">Авто</ComboBoxItem>
-        </ComboBox>
-        <ComboBox x:Name="rings_count" HorizontalAlignment="Left" VerticalAlignment="Top" Width="117" Margin="131,159,0,0" Height="25">
-            <ComboBoxItem IsSelected="True" Content="2"/>
-            <ComboBoxItem Content="3"/>
-            <ComboBoxItem Content="4"/>
-            <ComboBoxItem Content="5"/>
-            <ComboBoxItem Content="6"/>
-            <ComboBoxItem Content="7"/>
-            <ComboBoxItem Content="8"/>
-            <ComboBoxItem Content="9"/>
-            <ComboBoxItem Content="10"/>
-            <!--<ComboBoxItem>4</ComboBoxItem>
-            <ComboBoxItem>5</ComboBoxItem>
-            <ComboBoxItem>6</ComboBoxItem>
-            <ComboBoxItem>7</ComboBoxItem>
-            <ComboBoxItem>8</ComboBoxItem>
-            <ComboBoxItem>9</ComboBoxItem>
-            <ComboBoxItem>10</ComboBoxItem>-->
-        </ComboBox>
+        <Button Content="Старт" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="318,307,0,0" Height="58" Click="Button_Click"/>
+        <TextBox MaxLength="1"  Name="RingCount" Height="30" Width="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0 ,0" Text="" TextAlignment="Center" FontSize="20">
+        </TextBox>
 
     </Grid>
 </Window>
