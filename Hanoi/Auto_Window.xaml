@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Кенийские_башни"
         mc:Ignorable="d"
        Title="Auto_Window" Height="1000" Width="1369.6">
     <Grid>
@@ -17,13 +16,13 @@
             <Rectangle Fill="#008B8B" Height="400" Stroke="gray" Width="40" Canvas.Left="180" Canvas.Top="200"/>
             <Rectangle Fill="#008B8B" Height="400" Stroke="gray" Width="40" Canvas.Left="660" Canvas.Top="200"/>
             <Rectangle Fill="#008B8B" Height="400" Stroke="gray" Width="40" Canvas.Left="1140" Canvas.Top="200"/>
-            <Button x:Name="Start_Button" Content="Поехали!" Width="140" Canvas.Left="80" Canvas.Top="10" Height="41" Click="Button_Click"/>
+            <Button x:Name="StartButton" Content="Поехали!" Width="140" Canvas.Left="80" Canvas.Top="10" Height="41" Click="Button_Click"/>
             <ComboBox x:Name="Speed" Width="43" Canvas.Left="421" Canvas.Top="13" Height="26">
                 <ComboBoxItem IsSelected="True" Content="1"/>
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="3"/>
             </ComboBox>
-            <TextBlock x:Name="sbros" IsEnabled="True"  TextWrapping="Wrap" Canvas.Left="292" Canvas.Top="8" Height="33" Width="124" TextAlignment="Center" LineHeight="9"><Run Text="Время передвижения кольца"/><Run Text=":"/></TextBlock>
+            <TextBlock x:Name="Sbros" IsEnabled="True"  TextWrapping="Wrap" Canvas.Left="292" Canvas.Top="8" Height="33" Width="124" TextAlignment="Center" LineHeight="9"><Run Text="Время передвижения кольца"/><Run Text=":"/></TextBlock>
 
         </Canvas>
     </Grid>

@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using Кенийские_башни;
 
 namespace Hanoi
 {
@@ -17,7 +16,7 @@ namespace Hanoi
         /// Список передвижений
         /// </summary>
         readonly List<Tuple<int, int>> _movementsList=new();
-        public AutoWindow(Help_Class help)
+        public AutoWindow(HelpClass help)
         {
             InitializeComponent();
             _ringsCount = help.RingsCount;
@@ -32,14 +31,14 @@ namespace Hanoi
             col2.Children.Clear();
             col3.Children.Clear();
 
-            int ringWidth = Help_Class.RingMinWidth;
+            int ringWidth = HelpClass.RingMinWidth;
             for (int i = 0; i < _ringsCount; i++)
             {
                 Rectangle r = new Rectangle
                 {
-                    Width = ringWidth - i * (Help_Class.Difference),
-                    Height = Help_Class.RingHeight,
-                    Fill = Help_Class.ColorBrash(Help_Class.Colors.colors[i])
+                    Width = ringWidth - i * (HelpClass.Difference),
+                    Height = HelpClass.RingHeight,
+                    Fill = HelpClass.ColorBrash(HelpClass.Colors.colors[i])
                 };
                 Canvas.SetLeft(r, 120 - r.Width / 2);
                 Canvas.SetBottom(r, r.Height *i);
@@ -82,15 +81,15 @@ namespace Hanoi
 
                 case 0:
                     leftAnimation.To = Canvas.GetLeft(col1) + ((col1.Width / 2) - (r.Width / 2));
-                    bottomAnimation.To = Canvas.GetBottom(col1) + (col1.Children.Count * Help_Class.RingHeight);
+                    bottomAnimation.To = Canvas.GetBottom(col1) + (col1.Children.Count * HelpClass.RingHeight);
                     break;
                 case 1:
                     leftAnimation.To = Canvas.GetLeft(col2) + ((col2.Width / 2) - r.Width / 2);
-                    bottomAnimation.To = Canvas.GetBottom(col1) + (col2.Children.Count * Help_Class.RingHeight);
+                    bottomAnimation.To = Canvas.GetBottom(col1) + (col2.Children.Count * HelpClass.RingHeight);
                     break;
                 case 2:
                     leftAnimation.To = Canvas.GetLeft(col3) + (col3.Width / 2 - r.Width / 2);
-                    bottomAnimation.To = Canvas.GetBottom(col1) + (col3.Children.Count * Help_Class.RingHeight);
+                    bottomAnimation.To = Canvas.GetBottom(col1) + (col3.Children.Count * HelpClass.RingHeight);
                     break;
             }
             leftAnimation.Duration = TimeSpan.FromSeconds(Int32.Parse((string)((ComboBoxItem)Speed.SelectedItem).Content)*0.35);
@@ -150,7 +149,7 @@ namespace Hanoi
             copy.BeginAnimation(Canvas.LeftProperty,leftAnimation);
             copy.BeginAnimation(Canvas.BottomProperty, bottomAnimation);
             //Позиционируем колечко в ту
-            Canvas.SetBottom(r, toCol.Children.Count * Help_Class.RingHeight);
+            Canvas.SetBottom(r, toCol.Children.Count * HelpClass.RingHeight);
             await Task.Delay(Int32.Parse((string)((ComboBoxItem)Speed.SelectedItem).Content)*350);
             //Добавляем колечко в ту
             toCol.Children.Add(r);
@@ -184,7 +183,7 @@ namespace Hanoi
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             CreateField();
-            Start_Button.IsEnabled = false;
+            StartButton.IsEnabled = false;
             Solution(_ringsCount);
             foreach(var t in _movementsList)
             {
@@ -192,7 +191,7 @@ namespace Hanoi
                 await Move(t.Item1, t.Item2);
             }
            
-            Start_Button.IsEnabled = true;
+            StartButton.IsEnabled = true;
         }
 
 
