@@ -4,12 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Меню" Closing="Window_Closing" Height="300" Width="300"
+        Title="Меню" Height="300" Width="300"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Height="30" FontSize="20" HorizontalAlignment="Left" Margin="10,10,0 ,0"  Text="Количество колец:" VerticalAlignment="Top" RenderTransformOrigin="1.823,7.712" />
-            <TextBox MaxLength="2" Name="RingCount" Height="30" Width="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0 ,0" Text="" TextAlignment="Center" FontSize="20"/>
+            
+            <TextBox MaxLength="2" Name="RingCount" Height="30" Width="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0 ,0" Text="8" TextAlignment="Center" FontSize="20"/>
             <Button FontSize="20" Content="Начать" Height="30" Width="75" Click="Button_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0 ,0"/>
         </StackPanel>
     </Grid>

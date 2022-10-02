@@ -91,8 +91,6 @@ namespace Hanoi
                     bottomAnimation.To = Canvas.GetBottom(Col1) + (Col3.Children.Count * HelpClass.RingHeight);
                     break;
             }
-            //leftAnimation.Duration = TimeSpan.FromSeconds(0.35);
-            //bottomAnimation.Duration = TimeSpan.FromSeconds(0.35);
             leftAnimation.Duration = TimeSpan.FromSeconds((int)Slider.Value * 0.35);
              bottomAnimation.Duration = TimeSpan.FromSeconds((int)Slider.Value * 0.35);
         }
@@ -144,33 +142,24 @@ namespace Hanoi
             copy.BeginAnimation(Canvas.BottomProperty, bottomAnimation);
             Canvas.SetBottom(r, toCol.Children.Count * HelpClass.RingHeight);
             await Task.Delay((int) (Slider.Value * 350));
-            // await Task.Delay(350);
             toCol.Children.Add(r);
             MainCanvas.Children.Remove(copy);
         }
-        private void Solution(int n, int from=0, int to=1, int aux=2)
+        private void HanoiTower(int n, int from=0, int to=1, int aux=2)
         {
-            try
+            if (n > 0)
             {
-                if (n > 0)
-                {
-                    Solution(n - 1, from, aux, to);
-                    _movementsList.Add(new Tuple<int, int>(from, to));
-                    Solution(n - 1, aux, to, from);
-                }
-            }
-            catch (Exception err)
-            {
-                Debug.WriteLine(err.Message);
+                HanoiTower(n - 1, from, aux, to);
+                _movementsList.Add(new Tuple<int, int>(from, to));
+                HanoiTower(n - 1, aux, to, from);
             }
         }
         private async void Start()
         {
             CreateField();
-            Solution(_ringsCount);
+            HanoiTower(_ringsCount);
             foreach(var t in _movementsList)
             {
-                
                 await Move(t.Item1, t.Item2);
             }
         }

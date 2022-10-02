@@ -18,10 +18,5 @@ namespace Hanoi
             Animation animation = new Animation(a);
             animation.ShowDialog();
         }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            System.Diagnostics.Process.GetCurrentProcess().Kill();
-        }
     }
 }

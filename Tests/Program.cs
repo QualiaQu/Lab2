@@ -1,54 +1,40 @@
-﻿/*
- * C# Program to Demonstrate Tower Of Hanoi
- */
-
-using System.Runtime.InteropServices;
-using Convert = System.Convert;
+﻿using System.Diagnostics;
 
 namespace Tests;
 
 static class Program
 {
-    private static int _count;
-    class TowerOfHanoi
+    private static void HanoiTower(int n, int from=0, int to=1, int aux=2)
     {
-        int _mNumdiscs;
-        public TowerOfHanoi()
+        if (n > 0)
         {
-            Numdiscs = 0;
+            HanoiTower(n - 1, from, aux, to);
+            HanoiTower(n - 1, aux, to, from);
         }
-        public TowerOfHanoi(int newval)
+    }
+    public static void Main()
+    {
+        var startTime = DateTime.Now;
+        Stopwatch stopwatch = new Stopwatch();
+        string results = "Количество колец;Время (микросекунды)\n";
+        double averageTime = 0;
+        for (int ringCount = 1; ringCount <= 30; ringCount++)
         {
-            Numdiscs = newval;
-        }
-        public int Numdiscs
-        {
-            get => _mNumdiscs;
-            set
+            for (int i = 0; i < 5; i++)
             {
-                if (value > 0)
-                    _mNumdiscs = value;
+                stopwatch.Restart();
+                HanoiTower(ringCount);
+                stopwatch.Stop();
+                averageTime += stopwatch.Elapsed.TotalMilliseconds;
             }
+            
+            results += $"{ringCount};{Math.Round(averageTime /= 5, 6) * 1000};\n";
+            Console.WriteLine($"{ringCount}");
         }
-        public static void Movetower(int n, int from = 1, int to = 3, int other = 2)
-        {
-            if (n > 0)
-            {
-                Movetower(n - 1, from, other, to);
-                Console.WriteLine($"Move disk {n} from tower {from} to tower {to}");
-                Movetower(n - 1, other, to, from);
-            }
-        }
+        var finishTime = DateTime.Now;
+        Console.WriteLine(finishTime - startTime);
+        File.WriteAllText(Path.GetFullPath("./results.csv"), string.Empty);
+        File.AppendAllText(Path.GetFullPath("./results.csv"), results);
     }
     
-    static class TowersOfHanoiApp
-    {
-        public static void Main()
-        {
-            //TowerOfHanoi T = new TowerOfHanoi();
-            var ringCount = Convert.ToInt32(Console.ReadLine());
-            // TowerOfHanoi.Movetower(ringCount, 1, 3, 2);
-            TowerOfHanoi.Movetower(ringCount);
-        }
-    }
 }
