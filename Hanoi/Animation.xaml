@@ -4,10 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Анимация" Height="800" Width="1369.6"
+        Title="Анимация" Height="800" Width="1370"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Canvas x:Name="MainCanvas" HorizontalAlignment="Left" Height="970" VerticalAlignment="Top" Width="1363" Background="Azure">
+        <Canvas x:Name="MainCanvas" HorizontalAlignment="Left" Height="970" VerticalAlignment="Top" Width="1370" Background="Azure">
+            <Slider Name="Slider" Margin="435,0,0,0"  Orientation="Horizontal" VerticalAlignment="Top" Value="1" Minimum="0.01" Maximum="2"  Height="30" Width="500"
+                    IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged" TickPlacement="Both" TickFrequency="0.1"   
+                    IsSnapToTickEnabled="True"/>
             <Canvas Panel.ZIndex="1" x:Name="Col1" Height="400" Width="240" Canvas.Left="80" Canvas.Bottom="370"/>
             <Canvas Panel.ZIndex="1" x:Name="Col2" Height="400" Width="240" Canvas.Left="560" Canvas.Bottom="370"/>
             <Canvas Panel.ZIndex="1" x:Name="Col3" Height="400" Width="240" Canvas.Left="1040" Canvas.Bottom="370"/>

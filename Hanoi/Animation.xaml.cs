@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
@@ -90,8 +91,10 @@ namespace Hanoi
                     bottomAnimation.To = Canvas.GetBottom(Col1) + (Col3.Children.Count * HelpClass.RingHeight);
                     break;
             }
-            leftAnimation.Duration = TimeSpan.FromSeconds(0.2);
-            bottomAnimation.Duration = TimeSpan.FromSeconds(0.2);
+            //leftAnimation.Duration = TimeSpan.FromSeconds(0.35);
+            //bottomAnimation.Duration = TimeSpan.FromSeconds(0.35);
+            leftAnimation.Duration = TimeSpan.FromSeconds((int)Slider.Value * 0.35);
+             bottomAnimation.Duration = TimeSpan.FromSeconds((int)Slider.Value * 0.35);
         }
         private async Task Move(int from,int to)
         {
@@ -131,30 +134,20 @@ namespace Hanoi
             DoubleAnimation bottomAnimation = new DoubleAnimation();
 
             Rectangle copy = new Rectangle();
-            //Забираем колечко из фром
             Rectangle r = (Rectangle)fromCol.Children[^1];
             
             RectangleCopy(r, copy, from);
             Anima(copy, to, leftAnimation, bottomAnimation);
-            //Убираем колечко из фром
             fromCol.Children.Remove(r);
             MainCanvas.Children.Add(copy);
             copy.BeginAnimation(Canvas.LeftProperty,leftAnimation);
             copy.BeginAnimation(Canvas.BottomProperty, bottomAnimation);
-            //Позиционируем колечко в ту
             Canvas.SetBottom(r, toCol.Children.Count * HelpClass.RingHeight);
-            await Task.Delay(350);
-            //Добавляем колечко в ту
+            await Task.Delay((int) (Slider.Value * 350));
+            // await Task.Delay(350);
             toCol.Children.Add(r);
             MainCanvas.Children.Remove(copy);
         }
-        /// <summary>
-        /// Решение Кенобийских башень
-        /// </summary>
-        /// <param name="n"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="aux"></param>
         private void Solution(int n, int from=0, int to=1, int aux=2)
         {
             try
@@ -180,6 +173,11 @@ namespace Hanoi
                 
                 await Move(t.Item1, t.Item2);
             }
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            ((Slider)sender).SelectionEnd=e.NewValue;
         }
     }
 }
