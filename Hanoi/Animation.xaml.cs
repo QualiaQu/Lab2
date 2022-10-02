@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,9 +11,6 @@ namespace Hanoi
     public partial class Animation 
     {
         readonly int _ringsCount;
-        /// <summary>
-        /// Список передвижений
-        /// </summary>
         readonly List<Tuple<int, int>> _movementsList = new();
         public Animation(HelpClass help)
         {
@@ -22,9 +18,6 @@ namespace Hanoi
             _ringsCount = help.RingsCount;
             Start();
         }
-        /// <summary>
-        /// Создает поле
-        /// </summary>
         private void CreateField()
         {
             Col1.Children.Clear();
@@ -38,7 +31,7 @@ namespace Hanoi
                 {
                     Width = ringWidth - i * (HelpClass.Difference),
                     Height = HelpClass.RingHeight,
-                    Fill = HelpClass.ColorBrash(HelpClass.Colors.colors[i])
+                    Fill = HelpClass.ColorBrash(HelpClass.Colors.ColorsList[i])
                 };
                 Canvas.SetLeft(r, 120 - r.Width / 2);
                 Canvas.SetBottom(r, r.Height *i);
@@ -77,7 +70,6 @@ namespace Hanoi
 
             switch (to)
             {
-
                 case 0:
                     leftAnimation.To = Canvas.GetLeft(Col1) + ((Col1.Width / 2) - (r.Width / 2));
                     bottomAnimation.To = Canvas.GetBottom(Col1) + (Col1.Children.Count * HelpClass.RingHeight);
@@ -163,7 +155,6 @@ namespace Hanoi
                 await Move(t.Item1, t.Item2);
             }
         }
-
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             ((Slider)sender).SelectionEnd=e.NewValue;

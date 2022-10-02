@@ -12,8 +12,8 @@ namespace Hanoi
 
         public static class Colors
         {
-            public static readonly List<string> colors = new() 
-            { "#FFD3F8E2", "#FFDCDDEE", "#FFE4C1F9", "#FFEDABDD", "#FFEDC9C7", "#FFEDE7B1", "#FFF2BEB9", "#FFCBE3D5" , "#FFF694C1" , "#FFA9DEF9" };
+            public static readonly List<string> ColorsList = new() 
+            { "#ff0000", "#ff8c00", "#fff700", "#00ff15", "#005eff", "#5905a3", "#ce42eb", "#eda6ea" , "#a6e8ed" , "#bf1b5d" };
         }
         public int RingsCount;
         public static readonly int RingMinWidth = 240;
