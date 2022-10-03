@@ -157,7 +157,7 @@ namespace Hanoi
         }
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            ((Slider)sender).SelectionEnd=e.NewValue;
+            ((Slider)sender).SelectionEnd = e.NewValue;
         }
     }
 }

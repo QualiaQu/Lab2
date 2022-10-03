@@ -14,12 +14,12 @@
             <Canvas Panel.ZIndex="1" x:Name="Col1" Height="400" Width="240" Canvas.Left="80" Canvas.Bottom="370"/>
             <Canvas Panel.ZIndex="1" x:Name="Col2" Height="400" Width="240" Canvas.Left="560" Canvas.Bottom="370"/>
             <Canvas Panel.ZIndex="1" x:Name="Col3" Height="400" Width="240" Canvas.Left="1040" Canvas.Bottom="370"/>
-            <Rectangle Fill="#008B8B" Height="41" Stroke="Azure" Width="240" Canvas.Left="80" Canvas.Top="600"/>
-            <Rectangle Fill="#008B8B" Height="41" Stroke="Azure" Width="240" Canvas.Left="560" Canvas.Top="599"/>
-            <Rectangle Fill="#008B8B" Height="41" Stroke="Azure" Width="240" Canvas.Left="1040" Canvas.Top="599"/>
-            <Rectangle Fill="#008B8B" Height="400" Stroke="Azure" Width="40" Canvas.Left="180" Canvas.Top="201"/>
-            <Rectangle Fill="#008B8B" Height="400" Stroke="Azure" Width="40" Canvas.Left="660" Canvas.Top="200"/>
-            <Rectangle Fill="#008B8B" Height="400" Stroke="Azure" Width="40" Canvas.Left="1140" Canvas.Top="200"/>
+            <Rectangle Fill="#7ba7ed" Height="41" Stroke="Azure" Width="240" Canvas.Left="80" Canvas.Top="600"/>
+            <Rectangle Fill="#7ba7ed" Height="41" Stroke="Azure" Width="240" Canvas.Left="560" Canvas.Top="599"/>
+            <Rectangle Fill="#7ba7ed" Height="41" Stroke="Azure" Width="240" Canvas.Left="1040" Canvas.Top="599"/>
+            <Rectangle Fill="#7ba7ed" Height="400" Stroke="Azure" Width="40" Canvas.Left="180" Canvas.Top="201"/>
+            <Rectangle Fill="#7ba7ed" Height="400" Stroke="Azure" Width="40" Canvas.Left="660" Canvas.Top="200"/>
+            <Rectangle Fill="#7ba7ed" Height="400" Stroke="Azure" Width="40" Canvas.Left="1140" Canvas.Top="200"/>
         </Canvas>
     </Grid>
 </Window>
