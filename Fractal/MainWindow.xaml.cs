@@ -10,8 +10,8 @@ namespace Fractal
     {
         private int _depth;
         private int _i;
-        private const double LengthScale = 0.75;
-        private const double DeltaTheta = Math.PI / 6;
+        private const double LengthScale = 0.8;
+        private const double DeltaTheta = Math.PI / 8;
         public MainWindow()
         {
             InitializeComponent();
@@ -20,7 +20,7 @@ namespace Fractal
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             Canvas1.Children.Clear();
-            TbLabel.Text = "";
+            TbLabel.Text = null;
             _i = 0;
             _depth = 1;
             CompositionTarget.Rendering += StartAnimation!;
