@@ -11,12 +11,20 @@ namespace Hanoi
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            HelpClass a = new HelpClass
+            var count = Int32.Parse(RingCount.Text);
+            if (count < 1 | count > 10)
             {
-                RingsCount = Int32.Parse(RingCount.Text)
-            };
-            Animation animation = new Animation(a);
-            animation.ShowDialog();
+                MessageBox.Show("Введите значение от 1 до 10");      
+            }
+            else
+            {
+                HelpClass a = new HelpClass
+                {
+                    RingsCount = Int32.Parse(RingCount.Text)
+                };
+                Animation animation = new Animation(a);
+                animation.ShowDialog();
+            }
         }
     }
 }
