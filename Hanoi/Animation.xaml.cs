@@ -87,38 +87,20 @@ public partial class Animation
     }
     private async Task Move(int from,int to)
     {
-        Canvas fromCol;
-        switch (from)
+        Canvas fromCol = from switch
         {
-            case 0:
-                fromCol = Col1;
-                break;
-            case 1:
-                fromCol = Col2;
-                break;
-            case 2:
-                fromCol = Col3;
-                break;
-            default:
-                fromCol = Col1;
-                break;
-        }
-        Canvas toCol;
-        switch (to)
+            0 => Col1,
+            1 => Col2,
+            2 => Col3,
+            _ => Col1
+        };
+        Canvas toCol = to switch
         {
-            case 0:
-                toCol = Col1;
-                break;
-            case 1:
-                toCol = Col2;
-                break;
-            case 2:
-                toCol = Col3;
-                break;
-            default:
-                toCol = Col1;
-                break;
-        }
+            0 => Col1,
+            1 => Col2,
+            2 => Col3,
+            _ => Col1
+        };
         DoubleAnimation leftAnimation = new DoubleAnimation();
         DoubleAnimation bottomAnimation = new DoubleAnimation();
 
@@ -138,12 +120,13 @@ public partial class Animation
     }
     private void HanoiTower(int n, int from=0, int to=1, int aux=2)
     {
-        if (n > 0)
-        {
-            HanoiTower(n - 1, from, aux, to);
-            _movementsList.Add(new Tuple<int, int>(from, to));
-            HanoiTower(n - 1, aux, to, from);
-        }
+        if (n <= 0) return;
+        
+        HanoiTower(n - 1, from, aux, to);
+        
+        _movementsList.Add(new Tuple<int, int>(from, to));
+        
+        HanoiTower(n - 1, aux, to, from);
     }
     private async void Start()
     {

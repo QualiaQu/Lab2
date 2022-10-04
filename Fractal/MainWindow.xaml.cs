@@ -16,7 +16,6 @@ public partial class MainWindow
     {
         InitializeComponent();
     }
-
     private void btnStart_Click(object sender, RoutedEventArgs e)
     {
         Canvas1.Children.Clear();
@@ -25,7 +24,6 @@ public partial class MainWindow
         _depth = 1;
         CompositionTarget.Rendering += StartAnimation!;
     }
-
     private void StartAnimation(object sender, EventArgs e)
     {
         _i += 1;

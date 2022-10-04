@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Canvas x:Name="MainCanvas" HorizontalAlignment="Left" Height="970" VerticalAlignment="Top" Width="1370" Background="Azure">
-            <Slider Name="Slider" Margin="435,0,0,0"  Orientation="Horizontal" VerticalAlignment="Top" Value="1" Minimum="0.01" Maximum="2"  Height="30" Width="500"
+            <Slider Name="Slider" Margin="435,0,0,0"  Orientation="Horizontal" VerticalAlignment="Top" Value="2" Minimum="0.01" Maximum="2"  Height="30" Width="500"
                     IsSelectionRangeEnabled="True" ValueChanged="Slider_ValueChanged" TickPlacement="Both" TickFrequency="0.1"   
                     IsSnapToTickEnabled="True"/>
             <Canvas Panel.ZIndex="1" x:Name="Col1" Height="400" Width="240" Canvas.Left="80" Canvas.Bottom="370"/>
